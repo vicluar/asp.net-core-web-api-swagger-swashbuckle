@@ -26,6 +26,15 @@ namespace asp.net_core_web_api_swagger_swashbuckle
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+                {
+                    Title = "Vic_D - HTTP API",
+                    Version = "v1",
+                    Description = "Testing Swagger implementation through Swashbuckle"
+                });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +54,11 @@ namespace asp.net_core_web_api_swagger_swashbuckle
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+            app.UseSwagger().UseSwaggerUI(c => 
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Vic_D.API V1");
             });
         }
     }
